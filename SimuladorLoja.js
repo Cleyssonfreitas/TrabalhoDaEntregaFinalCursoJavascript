@@ -9,7 +9,6 @@ const produtos = [
 
 let carrinho = []
 
-// console.log(carrinho)
 function encontrarProduto(nomeProduto,quantidade) {
     const nomeProdutoMinusculo = nomeProduto.toLowerCase(); 
 
@@ -55,13 +54,23 @@ let produto = ""
       let contador = 0
       carrinho.forEach(obj => {
         contador = contador + 1
-        listaCarrinho += `<tr> <td align="center"> ${contador} </td>  <td> ${obj.nome} </td> <td align="center"> ${obj.quantidade} </td>  <td align="right" > R$ ${obj.precocomicms} </td>  <td align="right"> R$ ${obj.quantidade * obj.precocomicms} </td> </tr>`
+        listaCarrinho += `<tr> <td align="center"> ${contador} </td>  <td> ${obj.nome} </td> <td align="center"> ${obj.quantidade} </td>  <td align="right" > R$ ${obj.precocomicms} </td>  <td align="right"> R$ ${obj.quantidade * obj.precocomicms} </td> 
+        <td align="center"><button onclick="removerProduto('${obj.nome}')">Remover</button></td>
+        </tr>`
       })
     } else { 
       listaCarrinho = `<tr > <td align="center" colspan="5"> não existe produtos no seu carrinho </td> </tr>`
     }
   console.log(listaCarrinho) 
 document.getElementById("carrinho").innerHTML = listaCarrinho;
+  }
+
+  function removerProduto(nomeProduto) {
+    const index = carrinho.findIndex(item => item.nome === nomeProduto);
+    if (index !== -1) {
+      carrinho.splice(index, 1); 
+      getlistacarrinho()
+    }
   }
 getlistacarrinho()
 
