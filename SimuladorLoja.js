@@ -13,10 +13,13 @@ function encontrarProduto(nomeProduto,quantidade) {
     const nomeProdutoMinusculo = nomeProduto.toLowerCase(); 
 
     const item = produtos.find(produto => produto.nome.toLowerCase() === nomeProdutoMinusculo);
-      item.quantidade = quantidade
-    carrinho.push(item)
-   
-    return carrinho
+    if (item) {
+      item.quantidade = quantidade;
+      carrinho.push(item);
+      return true; 
+    } else {
+      return false; 
+    }
   }
 
   function calcularTotalComICMS(produto) {
@@ -39,12 +42,12 @@ let produto = ""
       carrinho.forEach(obj => {
         const totalComICMS = calcularTotalComICMS(obj);
         obj.precocomicms = totalComICMS.toFixed(2)
-        console.log(`Você comprou ${obj.quantidade} unidades de ${obj.nome}.`);
-        console.log(`Valor total com ICMS: R$ ${totalComICMS.toFixed(2)}`);
+        alert(`Você comprou ${obj.quantidade} unidades de ${obj.nome}.`);
+        alert(`Valor total com ICMS: R$ ${totalComICMS.toFixed(2)}`);
       })
       getlistacarrinho()
     } else {
-      console.log('Produto não encontrado. Por favor, escolha um produto válido.');
+      alert('Produto não encontrado. Por favor, escolha um produto válido.');
     }
 
   }
@@ -61,7 +64,6 @@ let produto = ""
     } else { 
       listaCarrinho = `<tr > <td align="center" colspan="5"> não existe produtos no seu carrinho </td> </tr>`
     }
-  console.log(listaCarrinho) 
 document.getElementById("carrinho").innerHTML = listaCarrinho;
   }
 
@@ -72,6 +74,8 @@ document.getElementById("carrinho").innerHTML = listaCarrinho;
       getlistacarrinho()
     }
   }
+ 
+
 getlistacarrinho()
 
   
